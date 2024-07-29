@@ -13,17 +13,13 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={['rgba(230, 230, 230, 0)', '#FEFFBF']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        style={styles.header}
-      >
+      {/* Replace LinearGradient with a plain View */}
+      <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButton}>
           <Image source={require('./assets1/back-icon.png')} style={styles.backIcon} />
         </TouchableOpacity>
         <Text style={styles.headerText}>Profile</Text>
-      </LinearGradient>
+      </View>
       <Image source={require('./assets2/avata.png')} style={styles.avatar} />
       <LinearGradient
         colors={['rgba(230, 230, 230, 0)', '#FEFFBF']}
@@ -79,12 +75,6 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 179,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    borderBottomLeftRadius: 33,
-    borderBottomRightRadius: 33,
     justifyContent: 'center',
     alignItems: 'center',
   },
