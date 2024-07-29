@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const { height, width } = Dimensions.get('window');
 
@@ -12,7 +11,6 @@ const HomeScreen = () => {
     { id: 'burger', label: 'BURGER', icon: require('./assets/icon-burger.png') },
     { id: 'drink', label: 'DRINK', icon: require('./assets/icon-drink.png') },
     { id: 'rice', label: 'RICE', icon: require('./assets/icon-rice.png') },
-    // Add more categories if needed
   ];
 
   const handleCategoryPress = (id) => {
@@ -22,10 +20,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <LinearGradient
-          colors={['rgba(230, 230, 230, 0)', '#FEFFBF']}
-          style={styles.header}
-        >
+        <View style={styles.header}>
           <Image 
             source={{ uri: 'https://s3-alpha-sig.figma.com/img/ba69/0395/85d997e07552a382305f9a418fc44c08?Expires=1722816000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Tie~A4i79t9BKTrVZrWQ6PCGvRQBaDBa516ZLiYDdGT6GSXvNpTvIiyO9TQJReDtqv5B1zZPhimzG1l1jG82ojthwiJjpAh60zK2QDA~Muurc1-fwwX5tVmwNECNOuuZtBHcN-b3Ed8w1xSWB-eYAaeHRFuDP5eD9gXKc43UVOeayMPeXKknAFr8KZ5Q7mbXm6~PqOgx9uFIIeVbK8g0i0gqQ1y~sr74I8i3rkeoihJ8jShM9eoHqVWg4gCyXHpGRq~iEHYkojbXWDqUn3~ImoKDNeKYpB2cLSPY6d0gl9UAFOkiaQPGtPSPteXbP0Z3kwRiNRuVkUOBFFVLEUaoDQ__' }} 
             style={styles.profileImage} 
@@ -41,13 +36,13 @@ const HomeScreen = () => {
             source={require('./assets/icon-bell.png')} 
             style={styles.bellIcon} 
           />
-        </LinearGradient>
+        </View>
         <View style={styles.searchContainer}>
           <Image source={require('./assets/icon-kl.png')} style={styles.magnifyingGlassIcon} />
           <TextInput
             style={styles.searchInput}
             placeholder="Search your food"
-            placeholderTextColor="#FFFFFF" // Change placeholder text color to white
+            placeholderTextColor="#FFFFFF" 
           />
           <Image source={require('./assets/icon-search.png')} style={styles.searchIcon} />
         </View>
@@ -104,11 +99,10 @@ const HomeScreen = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    
   },
   scrollView: {
     flex: 1,
@@ -116,14 +110,11 @@ const styles = StyleSheet.create({
   header: {
     width: width,
     height: 179,
-    borderBottomLeftRadius: 33,
-    borderBottomRightRadius: 33,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingTop: 40,
-    opacity: 1,
     position: 'relative',
   },
   profileImage: {
@@ -166,7 +157,6 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#ccc',
     borderRadius: 50,
     paddingHorizontal: 8,
     marginHorizontal: 16,
@@ -245,5 +235,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
 
 export default HomeScreen;
