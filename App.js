@@ -1,20 +1,18 @@
-// App.js
 import React from 'react';
 import { SafeAreaView, StyleSheet, StatusBar, View, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './HomeScreen'; // Adjust the path if needed
-import OrderScreen from './OrderScreen'; // Replace with actual screen component
-import InboxScreen from './InboxScreen'; // Replace with actual screen component
-import ProfileScreen from './ProfileScreen'; // Replace with actual screen component
+import HomeScreen from './HomeScreen'; 
+import OrderScreen from './OrderScreen';
+import InboxScreen from './InboxScreen'; 
+import ProfileScreen from './ProfileScreen';
 
 const Stack = createStackNavigator();
 
 const BottomNavigationBar = () => {
   const navigation = useNavigation();
-  
+
   return (
-   
     <View style={styles.bottomNavigation}>
       <TouchableOpacity style={styles.navIcon} onPress={() => navigation.navigate('Home')}>
         <Image source={require('./assets/icon-home.png')} style={styles.navImage} />
@@ -37,13 +35,14 @@ const App = () => {
     <NavigationContainer>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
+        
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={HomeScreen}  />
-          <Stack.Screen name="Order" component={OrderScreen} />
-          <Stack.Screen name="Inbox" component={InboxScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen style={styles.Layer} name="Home" component={HomeScreen} />
+          <Stack.Screen style={styles.Layer} name="Order" component={OrderScreen} />
+          <Stack.Screen style={styles.Layer} name="Inbox" component={InboxScreen} />
+          <Stack.Screen style={styles.Layer} name="Profile" component={ProfileScreen} />
         </Stack.Navigator>
-        <BottomNavigationBar />
+        <BottomNavigationBar/>
       </SafeAreaView>
     </NavigationContainer>
   );
@@ -54,6 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  
   bottomNavigation: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -62,6 +62,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
+    zIndex: 3,
+  },
+  Layer : {
+  zIndex: 2
   },
   navIcon: {
     flex: 1,
