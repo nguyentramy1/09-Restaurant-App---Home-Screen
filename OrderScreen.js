@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const ShoppingCart = () => {
   const navigation = useNavigation();
@@ -19,6 +20,7 @@ const ShoppingCart = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <LinearGradient colors={['rgba(230, 230, 230, 0)', '#FEFFBF']} style={styles.topBackground} />
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Image source={require('./assets1/back-icon.png')} style={styles.backIcon} />
         </TouchableOpacity>
@@ -85,16 +87,17 @@ const ShoppingCart = () => {
               <Text style={[styles.summaryText, styles.payableText]}>Payable Total</Text>
               <Text style={[styles.summaryPrice, styles.payablePrice]}>${(28 * quantity + 6.2).toFixed(2)}</Text>
             </View>
-              <TouchableOpacity style={styles.confirmButton}>
-                <Text style={styles.confirmButtonText}>Confirm Order</Text>
-              </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={styles.confirmButton}>
+              <Text style={styles.confirmButtonText}>Confirm Order</Text>
+            </TouchableOpacity>
           </View>
-        
+        </View>
       </ScrollView>
     </View>
   );
 };
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -105,19 +108,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 16,
-    borderBottomWidth: 1,
     borderBottomColor: '#ddd',
-    marginTop:10,
+    marginTop: 10,
   },
   backIcon: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 14,
   },
   headerText: {
     flex: 1,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  topBackground: {
+    position: 'absolute',
+    width: width,
+    height: 179,
+    borderRadius: 33,
+    top: 0,
+    left: 0,
+    right: 0,
+    overflow: 'hidden',
   },
   trashIcon: {
     width: 24,
@@ -152,7 +164,7 @@ const styles = StyleSheet.create({
     width: 327,
     padding: 16,
     borderRadius: 12,
-    marginTop: 20,
+    marginTop: -20,
     position: 'relative',
   },
   titlePriceContainer: {
@@ -256,8 +268,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     padding: 12,
     backgroundColor: '#F9F9F9',
-    width:327,
-    marginLeft:-16
+    width: 327,
+    marginLeft: -16,
   },
   paymentCardIcon: {
     width: 39,
@@ -271,17 +283,16 @@ const styles = StyleSheet.create({
   changeButton: {
     padding: 4,
   },
- changeText: {
-  fontSize: 16,
-  color: 'blue',
-  borderWidth: 1,
-  borderColor: '#4A43EC', 
-  borderRadius: 100, 
-  height:30,
-  width:79,
-  textAlign:'center',
-},
-
+  changeText: {
+    fontSize: 16,
+    color: 'blue',
+    borderWidth: 1,
+    borderColor: '#4A43EC',
+    borderRadius: 100,
+    height: 30,
+    width: 79,
+    textAlign: 'center',
+  },
   summaryContainer: {
     width: '100%',
     marginBottom: 16,
