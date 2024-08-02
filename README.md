@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/b679c8a2-588a-47bc-8418-c92139cfc1cb)Nguyễn Trà My
+Nguyễn Trà My
 BIT220111
 ![image](https://github.com/user-attachments/assets/704ba4ec-f7c7-42ae-850d-36717e24f87f)
 ![image](https://github.com/user-attachments/assets/1132cf9f-8ec5-4071-b9ba-b052b6d81ec4)
