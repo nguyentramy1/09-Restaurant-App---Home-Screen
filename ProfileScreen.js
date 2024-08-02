@@ -13,8 +13,8 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Replace LinearGradient with a plain View */}
       <View style={styles.header}>
+      <LinearGradient colors={['rgba(230, 230, 230, 0)', '#FEFFBF']} style={styles.topBackground} />
         <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButton}>
           <Image source={require('./assets1/back-icon.png')} style={styles.backIcon} />
         </TouchableOpacity>
@@ -71,7 +71,7 @@ const MenuItem = ({ icon, label }) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#ffff',
   },
   header: {
     height: 179,
@@ -93,6 +93,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+   topBackground: {
+    position: 'absolute',
+    width: '100%',
+    height: 179,
+    borderRadius: 33,
+    top: 0,
+    left: 0,
+    right: 0,
+    overflow:'hidden'
   },
   avatar: {
     width: 150,
