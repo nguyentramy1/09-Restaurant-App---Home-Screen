@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, ScrollView, TouchableOpacity, Dimensions } from 'react-native';  
+import { LinearGradient } from 'expo-linear-gradient';
+import AppIntroSlider from 'react-native-app-intro-slider';
 
 const { height, width } = Dimensions.get('window');
+
+const slides = [
+    { key: '1', image: require('./assets/burger.png') },
+    { key: '2', image: require('./assets/burger.png') },
+    { key: '3', image: require('./assets/burger.png') }
+];
 
 const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -17,10 +25,20 @@ const HomeScreen = () => {
     setSelectedCategory(prevCategory => prevCategory === id ? null : id);
   };
 
+  const renderSlide = ({ item }) => (
+    <View style={styles.slide}>
+        <Image source={item.image} style={styles.slideImage} />
+    </View>
+  );
+
+  const renderNextButton = () => <View style={styles.hiddenButton} />;
+  const renderDoneButton = () => <View style={styles.hiddenButton} />;
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
+          <LinearGradient colors={['rgba(230, 230, 230, 0)', '#FEFFBF']} style={styles.topBackground} />
           <Image 
             source={{ uri: 'https://s3-alpha-sig.figma.com/img/ba69/0395/85d997e07552a382305f9a418fc44c08?Expires=1722816000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Tie~A4i79t9BKTrVZrWQ6PCGvRQBaDBa516ZLiYDdGT6GSXvNpTvIiyO9TQJReDtqv5B1zZPhimzG1l1jG82ojthwiJjpAh60zK2QDA~Muurc1-fwwX5tVmwNECNOuuZtBHcN-b3Ed8w1xSWB-eYAaeHRFuDP5eD9gXKc43UVOeayMPeXKknAFr8KZ5Q7mbXm6~PqOgx9uFIIeVbK8g0i0gqQ1y~sr74I8i3rkeoihJ8jShM9eoHqVWg4gCyXHpGRq~iEHYkojbXWDqUn3~ImoKDNeKYpB2cLSPY6d0gl9UAFOkiaQPGtPSPteXbP0Z3kwRiNRuVkUOBFFVLEUaoDQ__' }} 
             style={styles.profileImage} 
@@ -79,12 +97,24 @@ const HomeScreen = () => {
             </TouchableOpacity>
           ))}
         </ScrollView>
-        
-        <View style={styles.imageContainer}>
-          <Image source={require('./assets/burger.png')} style={styles.additionalImage} />
+
+        <View style={styles.sliderContainer}>
+          <AppIntroSlider
+              renderItem={renderSlide}
+              data={slides}
+              dotStyle={styles.dotStyle}
+              activeDotStyle={styles.activeDotStyle}
+              renderNextButton={renderNextButton}
+              renderDoneButton={renderDoneButton}
+          />
         </View>
 
-        <Text style={styles.popularItemsTitle}>Popular Items</Text>
+        <View style={styles.popularItemsHeader}>
+          <Text style={styles.popularItemsTitle}>Popular Items</Text>
+          <TouchableOpacity>
+            <Text style={styles.viewAllText}>View all</Text>
+          </TouchableOpacity>
+        </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.popularItemsContainer}>
           <View style={styles.popularItem}>
             <Image source={require('./assets/burger-item.png')} style={styles.popularItemImage} />
@@ -99,16 +129,20 @@ const HomeScreen = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffff'
   },
   scrollView: {
     flex: 1,
+    width: '100%',
   },
   header: {
-    width: width,
+    width: '100%',
     height: 179,
     flexDirection: 'row',
     alignItems: 'center',
@@ -116,6 +150,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 40,
     position: 'relative',
+  },
+  topBackground: {
+    position: 'absolute',
+    width: 385,
+    height: 179,
+    borderRadius: 33,
+    top: 0,
+    left: 0,
+    right: 0,
+    overflow: 'hidden',
   },
   profileImage: {
     width: 50,
@@ -162,9 +206,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: -20,
     backgroundColor: '#4A43EC', // Background color of search bar
-    width: 300,
+    width: '80%',
     height: 60,
-    marginLeft:45,
+    alignSelf: 'center',
   },
   magnifyingGlassIcon: {
     width: 24,
@@ -175,7 +219,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 8,
     color: '#FFFFFF', 
-    marginLeft:20,
+    marginLeft: 20,
   },
   searchIcon: {
     width: 24,
@@ -186,55 +230,90 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 16,
     paddingVertical: 8,
+    justifyContent: 'center',
   },
   category: {
     alignItems: 'center',
-    padding: 16,
-    borderRadius: 8,
-    marginHorizontal: 8,
+    justifyContent: 'center',
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    marginHorizontal: 10,
     width: 86,
     height: 96,
-    justifyContent: 'center',
+    marginTop:30
   },
   categoryIcon: {
-    width: 25,
-    height: 30,
+    width: 24,
+    height: 24,
+    marginBottom: 4,
   },
   categoryText: {
-    marginTop: 8,
+    fontSize: 12,
+    fontWeight: 'bold',
   },
-  imageContainer: {
+  sliderContainer: {
+    width: width,
+  },
+  slide: {
+    justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 16,
+    width: width,
+    height: height * 0.3,
   },
-  additionalImage: {
+  slideImage: {
     width: 328,
     height: 165,
+    resizeMode: 'cover',
+  },
+  dotStyle: {
+    backgroundColor: '#D9D9D9',
+    marginTop: 100
+  },
+  activeDotStyle: {
+    backgroundColor: '#242424',
+    marginTop:100
+  },
+  popularItemsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 32,
+    marginHorizontal: 16,
   },
   popularItemsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginVertical: 16,
-    marginHorizontal: 16,
+  },
+  viewAllText: {
+    fontSize: 16,
+    color:'#606060',
+    fontWeight: 'bold',
   },
   popularItemsContainer: {
-    flexDirection: 'row',
-    marginHorizontal: 16,
+    paddingLeft: 16,
+    paddingTop: 8,
   },
   popularItem: {
-    alignItems: 'center',
+    width: 150,
+    height: 200,
     marginRight: 16,
   },
   popularItemImage: {
     width: 159,
     height: 117,
-    borderRadius: 8,
+    borderRadius: 16,
   },
   popularItemText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
     marginTop: 8,
-    fontSize: 16,
+  },
+  hiddenButton: {
+    width: 0,
+    height: 0,
+    opacity: 0,
   },
 });
-
 
 export default HomeScreen;
